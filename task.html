@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <link rel="stylesheet" href="style/task.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js"></script>
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAcm5EhDm-eUVt2TteoTQqKQYYOTUY0BMw",
+    authDomain: "study-ai-58aef.firebaseapp.com",
+    projectId: "study-ai-58aef",
+    storageBucket: "study-ai-58aef.firebasestorage.app",
+    messagingSenderId: "328148339030",
+    appId: "1:328148339030:web:75cb8c592a57ed3fd82ef7",
+    measurementId: "G-WEDMTKM0JR"
+  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  
+</script>
+
+</head>
+<body>
+    <div class="bg-zinc-950 text-white min-h-screen"><br><br>
+        <a href="dashboard.html"><button id="butt"
+        class="bg-gradient-to-r from-gray-500 to-Gray-500 hover:from-white-600 hover:to-darkgreen-600 text-white px-4 py-2 rounded-lg flex items-center transition-all duration-300 transform hover:scale-105">
+            <i class="fa-solid fa-backward"></i>&nbsp; &nbsp;Go Back</button> </a>
+        <div class="container mx-auto px-4 py-8 max-w-5xl">
+          <!-- Profile Section -->
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="md:col-span-1">
+      
+              <div class="bg-zinc-800/45 rounded-xl p-6 shadow-lg border border-white-500/20">
+                <div class="flex flex-col items-center">
+                  <div class="w-32 h-32 bg-gradient-to-r from-gray-500 to-gray-500 rounded-full flex items-center justify-center mb-4">
+                    <!--               <i class="fas fa-user-ninja text-4xl"></i> -->
+                    <img src="img/girl-img.jpg" class="rounded-full bg-cover border-2 border-white-400" />
+                  </div>
+                  <h2 class="text-2xl font-bold mb-2">
+                    Welcome, <span id="playerName" class="text-darkgray-400">karnika</span>
+                    <button onclick="editName()" class="ml-2 text-sm text-gray-400 hover:text-white-400">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </h2>
+      
+                  <!-- Level and Experience -->
+                  <div class="w-full mt-4">
+                    <div class="flex justify-between mb-2">
+                      <span>Level <span id="level">6</span></span>
+                      <span>XP: <span id="xp">40</span>/100</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                      <div id="xpBar" class="bg-gradient-to-r from-white-500 to-pink-500 rounded-full h-2 transition-all duration-300" style="width: 40%"></div>
+                    </div>
+                  </div>
+      
+                  <!-- Stats Grid -->
+                  <div class="grid grid-cols-2 gap-4 w-full mt-6">
+                    <div class="bg-zinc-800 rounded-lg p-4 transition-all duration-300 hover:bg-zinc-700">
+                      <div class="flex items-center">
+                        <i class="fas fa-fist-raised text-yellow-500 mr-2"></i>
+                        <span>Total</span>
+                      </div>
+                      <div id="strength" class="text-2xl font-bold">10</div>
+                    </div>
+                    <div class="bg-zinc-800  rounded-lg p-4 transition-all duration-300 hover:bg-zinc-700">
+                      <div class="flex items-center">
+                        <i class="fas fa-brain text-blue-500 mr-1"></i>
+                        <span>Ongoing</span>
+                      </div>
+                      <div id="intelligence" class="text-2xl font-bold">10</div>
+                    </div>
+                    <div class="bg-zinc-800  rounded-lg p-4 transition-all duration-300 hover:bg-zinc-700">
+                      <div class="flex items-center">
+                        <i class="fas fa-star text-white-500 mr-2"></i>
+                        <span>Completed</span>
+                      </div>
+                      <div id="charisma" class="text-2xl font-bold">0</div>
+                    </div>
+                    <div class="bg-zinc-800  rounded-lg p-4 transition-all duration-300 hover:bg-zinc-700">
+                      <div class="flex items-center">
+                        <i class="fas fa-palette text-pink-500 mr-2"></i>
+                        <span>Due time</span>
+                      </div>
+                      <div id="creativity" class="text-2xl font-bold">10</div>
+                    </div>
+                  </div>
+      
+                  <!-- Currency -->
+                  <div class="mt-6 bg-zinc-800 rounded-lg p-4 w-full transition-all duration-300 hover:bg-gray-600">
+                    <div class="flex items-center justify-between">
+                      <span class="text-lg">🪙Reward</span>
+                      <span id="coins" class="text-2xl font-bold text-yellow-500">310</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Tasks Section -->
+            <div class="md:col-span-2">
+              <div class="bg-[#111] rounded-xl p-4 lg:p-6 shadow-lg border border-white-500/20">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-bold">Active Tasks</h2>
+                  <button onclick="openModal('newTaskModal')" class="bg-gradient-to-r from-gray-500 to-black-500 hover:from-gray-600 hover:to-darkblue-600 text-white px-4 py-2 rounded-lg flex items-center transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-plus mr-2"></i> New Task
+                  </button>
+                </div>
+      
+                <div id="taskList" class="space-y-4 h-[480px] max-h-full overflow-y-auto pr-2">
+                  <!-- Tasks will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Custom Modal -->
+        <div id="newTaskModal" class="modal">
+          <div class="modal-content bg-zinc-800">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold">New Task</h3>
+              <button onclick="closeModal('newTaskModal')" class="text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <form id="newTaskForm" onsubmit="addNewTask(event)">
+              <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Task Title</label>
+                <input type="text" id="taskTitle" required class="w-full bg-zinc-700 rounded-lg p-2 text-white border border-gray-600 focus:border-white-500 focus:ring-2 focus:ring-white-500 focus:outline-none transition-all duration-300">
+              </div>
+              <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Description</label>
+                <textarea id="taskDescription" rows="3" class="w-full bg-zinc-700 rounded-lg p-2 text-white border border-gray-600 focus:border-white-500 focus:ring-2 focus:ring-white-500 focus:outline-none transition-all duration-300"></textarea>
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Reward Type</label>
+                <select id="taskRewardType" class="w-full bg-zinc-700 rounded-lg p-2 text-white border border-gray-600 focus:border-white-500 focus:ring-2 focus:ring-white-500 focus:outline-none transition-all duration-300">
+                  <option value="charisma">Easy</option>
+                  <option value="strength">Medium</option>
+                  <option value="intelligence">Hard</option>
+                 
+                </select>
+              </div>
+              <div class="flex justify-end space-x-4">
+                <button type="button" onclick="closeModal('newTaskModal')" class="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors duration-300">
+                  Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 bg-gradient-to-r from-white-500 to-pink-500 rounded-lg hover:from-white-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105">
+                  Create Task
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+    <script src="component/task.js"></script>
+</body>
+</html>
